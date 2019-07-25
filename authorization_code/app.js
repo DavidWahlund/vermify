@@ -191,7 +191,7 @@ app.post('/playlist', function (req, res) {
 //------------------------------------------------------------------ Spotify play
 app.get('/play', function (req, res) {
 
-  console.log(req.query.playlist_uri);
+  //console.log(req.query.playlist_uri);
   var playlist_uri = req.query.playlist_uri
 
   var playOptions = {
@@ -208,8 +208,55 @@ app.get('/play', function (req, res) {
   };
  
   request.put(playOptions, function (error, response, body) {
-    console.log(' requesting -------------------------------------------------------------------');
+    //console.log(' requesting -------------------------------------------------------------------');
    // console.log(response);
+
+  })
+});
+//-------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------ Spotify pause
+app.get('/paus', function (req, res) {
+
+  //console.log(req.query.playlist_uri);
+  //var playlist_uri = req.query.playlist_uri
+
+  var pausOptions = {
+    url: 'https://api.spotify.com/v1/me/player/pause',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token,
+    },
+  };
+ 
+  request.put(pausOptions, function (error, response, body) {
+    //console.log(' requesting -------------------------------------------------------------------');
+    //console.log(response);
+
+  })
+});
+//-------------------------------------------------------------------
+
+//------------------------------------------------------------------ Spotify repeat
+app.get('/repeat', function (req, res) {
+
+  //console.log(req.query.playlist_uri);
+  //var playlist_uri = req.query.playlist_uri
+
+  var repeatOptions = {
+    url: 'https://api.spotify.com/v1/me/player/repeat',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token,
+    },
+  };
+ 
+  request.put(repeatOptions, function (error, response, body) {
+    //console.log(' requesting -------------------------------------------------------------------');
+    console.log(response);
 
   })
 });
