@@ -18,6 +18,8 @@ var client_secret = 'cca2956c00584a08bab2f6f2e26d792f'; // Your secret
 var redirect_uri = 'http://FS215:8888/callback'; // Your redirect uri
 var user_id = 'davidwahlund'
 
+var access_token, refresh_token
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -108,36 +110,10 @@ app.get('/callback', function (req, res) {
 
         console.log(body.access_token);
 
-        var access_token = body.access_token,
-          refresh_token = body.refresh_token;
+         access_token = body.access_token;
+        refresh_token = body.refresh_token;
 
-        var options = {
-          url: 'https://api.spotify.com/v1/me',
-          headers: { 'Authorization': 'Bearer ' + access_token },
-          json: true
-        };
-
-
-
-        var playOptions = {
-          url: 'https://api.spotify.com/v1/me/player/play',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + access_token,
-          },
-          body: {
-            "context_uri": "spotify:playlist:4ZwyL2VShSRczxe65STLiu",
-            "position_ms": 0
-          },
-          json: true
-        };
-
-        request.put(playOptions, function (error, response, body) {
-          console.log('-------------------------------------------------------------------');
-          console.log(response);
-
-
-        })
+        
 
         // use the access token to access the Spotify Web API
         /*  request.get(options, function(error, response, body) {
@@ -176,7 +152,7 @@ app.get('/refresh_token', function (req, res) {
 
   request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      var access_token = body.access_token;
+          access_token = body.access_token;
       res.send({
         'access_token': access_token
       });
@@ -194,7 +170,7 @@ app.post('/playlist', function (req, res) {
 
     },
     body: {
-      "name": "Horde Music Playlist 2",
+      "name": "Horde Music Playlist ",
     },
     json: true
   }
@@ -215,24 +191,27 @@ app.post('/playlist', function (req, res) {
 //------------------------------------------------------------------ Spotify play
 app.get('/play', function (req, res) {
 
-  var options = {
+  console.log(req.query.playlist_uri);
+  var playlist_uri = req.query.playlist_uri
+
+  var playOptions = {
     url: 'https://api.spotify.com/v1/me/player/play',
-    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
-    context_uri: "spotify:album:5ht7ItJgpBH7W6vJ5BqpPr",
-    offset: { "position": 5 },
-    position_ms: 0,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token,
+    },
+    body: {
+      "context_uri": "spotify:playlist:" + playlist_uri,
+      "position_ms": 0
+    },
     json: true
   };
+ 
+  request.put(playOptions, function (error, response, body) {
+    console.log(' requesting -------------------------------------------------------------------');
+   // console.log(response);
 
-  request(options, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-      //TODO access playlist result object using body. and return the results the way you like.
-      // reference: https://expressjs.com/en/api.html#res  -> see re.send([section])
-      res.send('<p> works </p>');
-      console.log(user_id)
-      console.log('------------------------------------------------------------------------------')
-    }
-  });
+  })
 });
 //-------------------------------------------------------------------
 

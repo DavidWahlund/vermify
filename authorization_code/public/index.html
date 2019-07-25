@@ -21,7 +21,6 @@
       <div id="login">
         <h1>This is an example of the Authorization Code flow</h1>
         <a href="/login" class="btn btn-primary">Log in with Spotify</a>
-        <a href="/get_playlist" class="btn btn-primary">Get playlist</a>
        
       </div>
       <div id="loggedin">
@@ -29,7 +28,8 @@
         </div>
         <div id="oauth">
         </div>
-        <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+        <button class="btn btn-default" id="btn-play-ratogre-list">Play Horde Playlist</button>
+        <button class="btn btn-default" id="btn-play-troll-list">Play Chaos Troll Playlist</button>
       </div>
     </div>
 
@@ -54,11 +54,8 @@
     </script>
 
     <script id="oauth-template" type="text/x-handlebars-template">
-      <h2>oAuth info</h2>
-      <dl class="dl-horizontal">
-        <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
-        <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}</dd>
-      </dl>
+      <h2>Action:</h2>
+      
     </script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
@@ -122,11 +119,11 @@
               $('#loggedin').hide();
           }
 
-          document.getElementById('obtain-new-token').addEventListener('click', function() {
+          document.getElementById('btn-play-ratogre-list').addEventListener('click', function() {
             $.ajax({
-              url: '/refresh_token',
+              url: '/play',
               data: {
-                'refresh_token': refresh_token
+                'playlist_uri': "0oSRl1HCFJVJ1NvyvN3do2"
               }
             }).done(function(data) {
               access_token = data.access_token;
@@ -134,6 +131,18 @@
                 access_token: access_token,
                 refresh_token: refresh_token
               });
+            });
+          }, false);
+
+          document.getElementById('btn-play-troll-list').addEventListener('click', function() {
+            console.log("clicked play troll play list")
+            $.ajax({
+              url: '/play',
+              data: {
+                'playlist_uri': "4ZwyL2VShSRczxe65STLiu"
+              }
+            }).done(function(data) {
+       
             });
           }, false);
         }
