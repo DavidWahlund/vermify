@@ -247,7 +247,7 @@ app.get('/repeat', function (req, res) {
   //var playlist_uri = req.query.playlist_uri
 
   var repeatOptions = {
-    url: 'https://api.spotify.com/v1/me/player/repeat',
+    url: 'https://api.spotify.com/v1/me/player/repeat?state=context',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token,
@@ -255,6 +255,72 @@ app.get('/repeat', function (req, res) {
   };
  
   request.put(repeatOptions, function (error, response, body) {
+    //console.log(' requesting -------------------------------------------------------------------');
+    //console.log(response);
+
+  })
+});
+//-------------------------------------------------------------------
+
+//------------------------------------------------------------------ Spotify repeat
+app.get('/shuffle', function (req, res) {
+
+  //console.log(req.query.playlist_uri);
+  //var playlist_uri = req.query.playlist_uri
+
+  var repeatOptions = {
+    url: 'https://api.spotify.com/v1/me/player/shuffle?state=true',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token,
+    },
+  };
+ 
+  request.put(repeatOptions, function (error, response, body) {
+    //console.log(' requesting -------------------------------------------------------------------');
+    console.log(response);
+
+  })
+});
+//-------------------------------------------------------------------
+
+//------------------------------------------------------------------ Spotify skip backwards
+app.get('/seek', function (req, res) {
+
+  //console.log(req.query.playlist_uri);
+  //var playlist_uri = req.query.playlist_uri
+
+  var putOptions = {
+    url: 'https://api.spotify.com/v1/me/player/seek?position_ms=2500',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token,
+    },
+  };
+ 
+  request.put(putOptions, function (error, response, body) {
+    //console.log(' requesting -------------------------------------------------------------------');
+    console.log(response);
+
+  })
+});
+//-------------------------------------------------------------------
+
+//------------------------------------------------------------------ Spotify skip backwards
+app.get('/volume', function (req, res) {
+
+  //console.log(req.query.playlist_uri);
+  //var playlist_uri = req.query.playlist_uri
+
+  var putOptions = {
+    url: 'https://api.spotify.com/v1/me/player/volume?volume_percent=50',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token,
+    },
+  };
+ 
+  request.put(putOptions, function (error, response, body) {
     //console.log(' requesting -------------------------------------------------------------------');
     console.log(response);
 
