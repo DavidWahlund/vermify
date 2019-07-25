@@ -32,6 +32,11 @@
         <button class="btn btn-default" id="btn-play-troll-list">Play Chaos Troll Playlist</button>
         <button class="btn btn-default" id="btn-plaus">Paus</button>
         <button class="btn btn-default" id="btn-repeat">Repeat</button>
+        <button class="btn btn-default" id="btn-shuffle">Shuffle</button>
+        <button class="btn btn-default" id="btn-seek">Seek</button>
+        <button class="btn btn-default" id="btn-set-volume">Set Volume</button>
+
+        
       </div>
     </div>
 
@@ -173,6 +178,37 @@
        
             });
           }, false);
+
+          document.getElementById('btn-shuffle').addEventListener('click', function() {
+            console.log("clicked shuffle")
+            $.ajax({
+              url: '/shuffle',
+              
+            }).done(function(data) {
+       
+            });
+          }, false);
+
+          document.getElementById('btn-seek').addEventListener('click', function() {
+            console.log("clicked seek")
+            $.ajax({
+              url: '/seek',
+              
+            }).done(function(data) {
+       
+            });
+          }, false);
+
+          document.getElementById('btn-set-volume').addEventListener('click', function() {
+            console.log("clicked set-volume")
+            $.ajax({
+              url: '/volume',
+              
+            }).done(function(data) {
+       
+            });
+          }, false);
+
 
         }
       })();
