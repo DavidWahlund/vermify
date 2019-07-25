@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Example of the Authorization Code flow with Spotify</title>
+    <title>Authorization with Spotify</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <style type="text/css">
       #login, #loggedin {
@@ -19,7 +19,7 @@
   <body>
     <div class="container">
       <div id="login">
-        <h1>This is an example of the Authorization Code flow</h1>
+        <h1>Authorization</h1>
         <a href="/login" class="btn btn-primary">Log in with Spotify</a>
        
       </div>
@@ -28,8 +28,10 @@
         </div>
         <div id="oauth">
         </div>
-        <button class="btn btn-default" id="btn-play-ratogre-list">Play Horde Playlist</button>
+        <button class="btn btn-default" id="btn-play-ratogre-list">Play Rat Ogre Playlist</button>
         <button class="btn btn-default" id="btn-play-troll-list">Play Chaos Troll Playlist</button>
+        <button class="btn btn-default" id="btn-plaus">Paus</button>
+        <button class="btn btn-default" id="btn-repeat">Repeat</button>
       </div>
     </div>
 
@@ -135,16 +137,43 @@
           }, false);
 
           document.getElementById('btn-play-troll-list').addEventListener('click', function() {
-            console.log("clicked play troll play list")
             $.ajax({
               url: '/play',
               data: {
                 'playlist_uri': "4ZwyL2VShSRczxe65STLiu"
               }
             }).done(function(data) {
+              access_token = data.access_token;
+              oauthPlaceholder.innerHTML = oauthTemplate({
+                access_token: access_token,
+                refresh_token: refresh_token
+              });
+            });
+          }, false);
+
+
+
+          document.getElementById('btn-plaus').addEventListener('click', function() {
+            console.log("clicked paus")
+            $.ajax({
+              url: '/paus',
+              
+            }).done(function(data) {
        
             });
           }, false);
+
+
+          document.getElementById('btn-repeat').addEventListener('click', function() {
+            console.log("clicked repeat")
+            $.ajax({
+              url: '/repeat',
+              
+            }).done(function(data) {
+       
+            });
+          }, false);
+
         }
       })();
     </script>
