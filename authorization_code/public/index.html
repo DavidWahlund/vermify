@@ -35,6 +35,9 @@
         <button class="btn btn-default" id="btn-shuffle">Shuffle</button>
         <button class="btn btn-default" id="btn-seek">Seek</button>
         <button class="btn btn-default" id="btn-set-volume">Set Volume</button>
+        <button class="btn btn-default" id="btn-transfer-play">Transfer Playback</button>
+
+       
 
         
       </div>
@@ -209,7 +212,17 @@
             });
           }, false);
 
+          document.getElementById('btn-transfer-play').addEventListener('click', function() {
+            console.log("clicked transfer playback")
+            $.ajax({
+              url: '/player',
+              
+            }).done(function(data) {
+       
+            });
+          }, false);
 
+          
         }
       })();
     </script>
