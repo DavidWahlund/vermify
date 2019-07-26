@@ -188,7 +188,7 @@ app.post('/playlist', function (req, res) {
 });
 
 
-//------------------------------------------------------------------ Spotify play
+//------------------------------------------------------------------ Spotify playback
 app.get('/play', function (req, res) {
 
   //console.log(req.query.playlist_uri);
@@ -262,13 +262,13 @@ app.get('/repeat', function (req, res) {
 });
 //-------------------------------------------------------------------
 
-//------------------------------------------------------------------ Spotify repeat
+//------------------------------------------------------------------ Spotify shuffle
 app.get('/shuffle', function (req, res) {
 
   //console.log(req.query.playlist_uri);
   //var playlist_uri = req.query.playlist_uri
 
-  var repeatOptions = {
+  var shuffleOptions = {
     url: 'https://api.spotify.com/v1/me/player/shuffle?state=true',
     headers: {
       'Content-Type': 'application/json',
@@ -276,7 +276,7 @@ app.get('/shuffle', function (req, res) {
     },
   };
  
-  request.put(repeatOptions, function (error, response, body) {
+  request.put(shuffleOptions, function (error, response, body) {
     //console.log(' requesting -------------------------------------------------------------------');
     console.log(response);
 
@@ -284,13 +284,13 @@ app.get('/shuffle', function (req, res) {
 });
 //-------------------------------------------------------------------
 
-//------------------------------------------------------------------ Spotify skip backwards
+//------------------------------------------------------------------ Spotify seek
 app.get('/seek', function (req, res) {
 
   //console.log(req.query.playlist_uri);
   //var playlist_uri = req.query.playlist_uri
 
-  var putOptions = {
+  var seekOptions = {
     url: 'https://api.spotify.com/v1/me/player/seek?position_ms=2500',
     headers: {
       'Content-Type': 'application/json',
@@ -298,7 +298,7 @@ app.get('/seek', function (req, res) {
     },
   };
  
-  request.put(putOptions, function (error, response, body) {
+  request.put(seekOptions, function (error, response, body) {
     //console.log(' requesting -------------------------------------------------------------------');
     console.log(response);
 
@@ -306,18 +306,44 @@ app.get('/seek', function (req, res) {
 });
 //-------------------------------------------------------------------
 
-//------------------------------------------------------------------ Spotify skip backwards
+//------------------------------------------------------------------ Spotify set volume
 app.get('/volume', function (req, res) {
 
   //console.log(req.query.playlist_uri);
   //var playlist_uri = req.query.playlist_uri
 
-  var putOptions = {
+  var volumeOptions = {
     url: 'https://api.spotify.com/v1/me/player/volume?volume_percent=50',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token,
     },
+  };
+ 
+  request.put(volumeOptions, function (error, response, body) {
+    //console.log(' requesting -------------------------------------------------------------------');
+    console.log(response);
+
+  })
+});
+//-------------------------------------------------------------------
+
+//------------------------------------------------------------------ Spotify transfer playback
+app.get('/player', function (req, res) {
+
+  //console.log(req.query.playlist_uri);
+  //var playlist_uri = req.query.playlist_uri
+
+  var putOptions = {
+    url: 'https://api.spotify.com/v1/me/player',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + access_token,
+    },
+    body: {
+      'device_ids': ["4c6f0a7907476bb6576456516e146087bd3e1138"],
+    },
+    json: true
   };
  
   request.put(putOptions, function (error, response, body) {
