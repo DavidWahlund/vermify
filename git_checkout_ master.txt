@@ -1,0 +1,26 @@
+git checkout master
+
+git pull 
+
+git checkout -b feature-your-feature
+
+-- Check modified files before commit
+git status
+
+-- Add changed files to be tracked
+git add .
+
+-- Commit the changes with a message
+git commit -m "Commit message"
+
+
+-- Push the locally created branch to remote repository
+-- Make sure to use the same branch name after origin
+git push -u origin feature-your-feature
+
+
+
+-- Create a pull request in Github web interface
+
+-- Merge the pull request
+

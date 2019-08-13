@@ -291,7 +291,7 @@ app.get('/seek', function (req, res) {
   //var playlist_uri = req.query.playlist_uri
 
   var seekOptions = {
-    url: 'https://api.spotify.com/v1/me/player/seek?position_ms=2500',
+    url: 'https://api.spotify.com/v1/me/player/seek?position_ms=49500',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token,
